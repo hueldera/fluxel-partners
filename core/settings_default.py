@@ -1,4 +1,8 @@
 import environ
+from django.utils.translation import ugettext_lazy as _
+import os
+from core.settings_default import *
+from pathlib import Path
 env = environ.Env()
 environ.Env.read_env()
 
