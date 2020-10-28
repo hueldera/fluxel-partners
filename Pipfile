@@ -17,6 +17,7 @@ django-ckeditor = "*"
 django-modeltranslation = "*"
 django-environ = "*"
 django-bleach = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
