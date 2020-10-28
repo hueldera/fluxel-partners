@@ -18,6 +18,10 @@ django-modeltranslation = "*"
 django-environ = "*"
 django-bleach = "*"
 gunicorn = "*"
+django-heroku = "*"
+psycopg2 = "*"
+psycopg2-binary = "*"
+django-on-heroku = "*"
 
 [requires]
 python_version = "3.8"
