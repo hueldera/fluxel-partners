@@ -1,0 +1,10 @@
+
+Hello {{ username }},
+
+{{ content }}
+Any doubts or questions send a message throught the system.
+
+Pls. Do not reply this message.
+
+--
+Fluxel Digital Team.

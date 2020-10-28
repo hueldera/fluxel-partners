@@ -1,0 +1,22 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% block head_title %}{% trans "Cancel Order Confirmation" %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="m-3">
+        <div class="tree-link">
+            <a href="{% url 'orders' %}"><i class="fa fa-arrow-left"></i> {% trans 'Back' %}</a>
+        </div>
+        <h3>{% trans 'You really want to cancel' %} #{{order.id}} - {{order.customer}}?</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="password">{% trans 'Confirm your password to continue' %}:</label>
+            <input class="form form-control mb-2" type="password" name="validate_password" id="validate_password">
+            <button onclick="this.disabled=true,this.form.submit();" type="submit"
+                class="btn btn-danger">{% trans 'Yes, cancel it now' %}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

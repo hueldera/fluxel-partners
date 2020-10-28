@@ -1,0 +1,23 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bleach_tags %}
+{% block head_title %}{% trans "Order Briefing" %}{% endblock %}
+{% block content %}
+<div class="tree-link">
+    <a href="{% url 'orders' %}"><i class="fa fa-arrow-left"></i> {% trans 'Back' %}</a>
+</div>
+<div class="container-fluid briefing">
+    <div class="m-3">
+        <h1>{% trans 'Briefing' %}: {{order.customer}}</h1>
+        <span class="badge badge-{{order.status.color}}">{{order.status}}</span>
+        <span>{% trans 'By' %}</span>: {{order.author}}</span>
+    </div>
+    <hr>
+    <article class="m-3" style="overflow-wrap: break-word;">
+        {% filter bleach_linkify%}
+        {{ order.description|safe  }}
+        {% endfilter %}
+    </article>
+</div>
+{% endblock %}

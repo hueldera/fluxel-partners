@@ -1,0 +1,24 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "New Order" %}{% endblock %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        {% load crispy_forms_tags %}
+        <div class="col m-3">
+            <div class="tree-link">
+                <a href="{% url 'orders' %}"><i class="fa fa-arrow-left"></i> {% trans 'Back' %}</a>
+            </div>
+            <h1>{% trans 'New Order' %}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ order_form|crispy }}
+                <button type="submit" onclick="this.disabled=true,this.form.submit();" class=" btn
+                    btn-primary">{% trans 'Submit' %}</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

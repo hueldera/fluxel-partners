@@ -1,0 +1,90 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% block head_title %}{% trans "My Orders" %}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col m-3">
+            <h1>{% trans 'My Orders' %}</h1>
+            <div class="mt-3 mb-3">
+                <a class="btn btn-primary" href="{% url 'create' %}">{% trans 'New Order' %}</a>
+            </div>
+            {% if user_orders %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">{% trans 'ID' %}</th>
+                        <th scope="col">{% trans 'Customer' %}</th>
+                        <th scope="col">{% trans 'Order Date' %}</th>
+                        <th scope="col">{% trans 'Deadline' %}</th>
+                        <th scope="col">{% trans 'Budget' %}</th>
+                        <th scope="col">{% trans 'Briefing' %}</th>
+                        <th scope="col">{% trans 'Status' %}</th>
+                        <th scope="col">{% trans 'Messages' %}</th>
+                        <th scope="col">{% trans 'Actions' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in user_orders %}
+                    <tr>
+                        <th scope="row">{{order.id}}</th>
+                        <td>{{order.customer}}</td>
+                        <td>{{order.created_at|date:"d/m/Y"}}</td>
+                        <td>{{order.deadline|date:"d/m/Y"}}</td>
+                        <td>{{order.budget}}</td>
+                        <td><a href="{{order.id}}">View</a></td>
+                        <td><span class="badge badge-{{order.status.color}}">{{order.status}}</span></td>
+                        <td><a href="messages/{{order.id}}">View</a></td>
+                        <td>
+                            {% if order.status.name not in NOT_ALLOWED_STATUS_LIST %}
+                            <a href="update/{{order.id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                            <a href="cancel/{{order.id}}"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% else %}
+                <p>{% trans "You haven't placed any orders yet ;(. Use the New Order button above." %}</p>
+                {% endif %}
+            </table>
+            <nav aria-label="orders-pagination">
+                {% if user_orders.has_other_pages %}
+                <ul class="pagination justify-content-center">
+                    {% if user_orders.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ user_orders.previous_page_number }}"
+                            tabindex="-1">{% trans 'Previous' %}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">{% trans 'Previous' %}</a>
+                    </li>
+                    {% endif %}
+                    {% for i in user_orders.paginator.page_range %}
+                    {% if user_orders.number == i %}
+                    <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                    {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if user_orders.has_next  %}
+                    <li class="page-item active">
+                        <a class="page-link" href="?page={{ user_orders.next_page_number }}">{% trans 'Next' %}</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#">{% trans 'Next' %}</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

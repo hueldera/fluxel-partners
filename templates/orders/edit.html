@@ -1,0 +1,30 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Edit Order" %}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+
+        {% load crispy_forms_tags %}
+        <div class="col-md-6 mt-3">
+            <div class="tree-link">
+                <a href="{% url 'orders' %}"><i class="fa fa-arrow-left"></i> {% trans 'Back' %}</a>
+            </div>
+            <h1>{% trans 'Edit Order' %} #{{order.id}}</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ order_form|crispy }}
+                <div class="form-check mt-3 mb-3">
+                    <input class="form-check-input" type="checkbox" name="agree" id="agree">
+                    <label class="form-check-label" for="agree">
+                        {% trans 'I know that if I do any changes to my order it will go to status' %}
+                        <span class="badge badge-info">{% trans 'Waiting Aproval' %}</span>
+                    </label>
+                </div>
+                <button onclick="this.disabled=true,this.form.submit();" type="submit"
+                    class="btn btn-primary mb-3">{% trans 'Change' %}</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
