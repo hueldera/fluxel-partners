@@ -6,6 +6,8 @@ from pathlib import Path
 env = environ.Env()
 environ.Env.read_env()
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 # Application definition
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
