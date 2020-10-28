@@ -51,6 +51,7 @@ SECURE_HSTS_SECONDS = 0  # Time to force SSL
 SECURE_SSL_REDIRECT = False
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1',
+                 'partners-fluxel.herokuapp.com', 'fluxel.co']
 
 django_on_heroku.settings(locals())
